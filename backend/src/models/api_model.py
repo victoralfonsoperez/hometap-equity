@@ -3,7 +3,7 @@ from typing import List
 
 class ThirdPartyItem1(BaseModel):
   # square footage
-  squareFoorage: int
+  squareFootage: int
   # lot size sq ft
   lotSizeSqFt: int = None
   # year built
@@ -23,7 +23,7 @@ class ThirdPartyItem1(BaseModel):
 
 class ThirdPartyItem2(BaseModel):
   # square footage
-  SquareFoorage: int
+  SquareFootage: int
   # lot size acres
   LotSizeAcres: float
   # year built
