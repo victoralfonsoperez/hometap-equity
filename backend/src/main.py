@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.controllers.item_controller import router as item_router
+from src.controllers.api_controller import router as item_router
 from dotenv import load_dotenv
 import os
 
