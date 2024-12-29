@@ -42,6 +42,6 @@ class ThirdPartyItem2(BaseModel):
   SalePrice: int
 
 class AggregatedResponse(BaseModel):
-  source_1_items: List[ThirdPartyItem1]
+  source_1: List[ThirdPartyItem1]
   # TODO validate model here for the thirdparty 2
-  source_2_items: List[ThirdPartyItem1]
+  source_2: List[ThirdPartyItem1]
