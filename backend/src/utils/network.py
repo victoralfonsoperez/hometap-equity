@@ -20,6 +20,7 @@ async def fetch_from_api(url: str, params: dict = None, headers: dict = None) ->
     
     # get request with the url, params and headers
     response = await client.get(url, params=params, headers=headers)
+    
     # raise error for bad responses
     response.raise_for_status()
 
