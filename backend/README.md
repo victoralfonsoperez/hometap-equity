@@ -3,6 +3,8 @@ hometap take home app
 
 Working locally
 
+In order to load the third party data you should create a .rnv file in the root of the folder, following the structure of the .env.local file and adding there the URLs and the API_KEYS.
+
 Then create a virtual environment in your project directory like this:
 ```
 python3 -m venv .venv
