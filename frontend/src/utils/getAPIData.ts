@@ -28,6 +28,7 @@ export async function getAPIData (queryParams: string) {
   let response
   let loading: boolean
   loading = true
+  // TODO move the hardcoded endpoint to a env var
   try {
     const {data} = await axios.get<API_response>(`${"http://localhost:8000/home_equity"}?search_query=${queryParams}`)
     response = data
