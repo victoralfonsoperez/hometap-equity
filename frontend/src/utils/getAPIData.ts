@@ -1,10 +1,11 @@
 import axios from 'axios'
 
-export type API_response = {source_1: [
+export type API_response = {
+  provider_1: [
   {
     bathrooms: number
     bedrooms: number
-    lotSizeSqFt: number
+    lotSizeInAcres: number
     propertyType: string
     roomCount: number
     salePrice: number
@@ -12,10 +13,10 @@ export type API_response = {source_1: [
     squareFootage: number
     yearBuilt: number
   }
-], source_2: [{
+], provider_2: [{
     bathrooms: number
     bedrooms: number
-    lotSizeSqFt: number
+    lotSizeInAcres: number
     propertyType: string
     roomCount: number
     salePrice: number

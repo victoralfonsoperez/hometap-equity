@@ -1,6 +1,25 @@
 from pydantic import BaseModel
 from typing import List
 
+class AggregatedItem(BaseModel):
+  # square footage
+  squareFootage: int
+  # lot size sq ft
+  lotSizeInAcres: float = None
+  # year built
+  yearBuilt: int
+  # property type
+  propertyType: str
+  # bedrooms
+  bedrooms: int
+  # bathrooms
+  bathrooms: int
+  # room count
+  roomCount: int
+  # septic system
+  septicSystem: bool
+  # sale price
+  salePrice: int
 class ThirdPartyItem1(BaseModel):
   # square footage
   squareFootage: int
@@ -42,6 +61,5 @@ class ThirdPartyItem2(BaseModel):
   SalePrice: int
 
 class AggregatedResponse(BaseModel):
-  source_1: List[ThirdPartyItem1]
-  # TODO validate model here for the thirdparty 2
-  source_2: List[ThirdPartyItem1]
+  provider_1: List[AggregatedItem]
+  provider_2: List[AggregatedItem]

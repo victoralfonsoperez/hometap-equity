@@ -5,11 +5,14 @@ import { API_response, getAPIData } from "./utils/getAPIData";
 function App() {
   const [apiData, setApiData] = useState<API_response>()
   const [loading, setLoading] = useState(false)
+  const [address, setAddress] = useState<string>("")
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function search(event: any) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const inputValue = formData.get('address');
+    
+    if (inputValue) setAddress(inputValue as string)
     const encodedValue = encodeURIComponent(inputValue as string)
     
     if (encodedValue) setLoading(true)
@@ -69,22 +72,31 @@ function App() {
       <div>
         {loading ? <p>Loading data...</p> : null}
         {apiData ? <h2 className="text-4xl mb-8">Results</h2>: null}
-        <div className="flex flex-row">
-          {apiData && apiData.source_1 ? <div className="w-1/2">
-            <p><span>Bathrooms:</span> {apiData.source_1[0].bathrooms}</p>
-            <p><span>Bedrooms:</span> {apiData.source_1[0].bedrooms}</p>
-            <p><span>Year Built:</span> {apiData.source_1[0].yearBuilt}</p>
-            <p><span>Property Type:</span> {apiData.source_1[0].propertyType}</p>
-            <p><span>Sale Price:</span> {apiData.source_1[0].salePrice}</p>
-            <p><span>Room Count:</span> {apiData.source_1[0].roomCount}</p>
+        <div className="flex flex-row flex-wrap">
+          {address && !loading ? <div className="w-full mb-10"><p>Normalized Address: {address}</p></div> : null}
+          {apiData && apiData.provider_1 ? <div className="w-1/2 p-4">
+            <h4 className="text-3xl mb-8 text-cyan-500">Provider 1</h4>
+            <p><span>Square Footage:</span> {apiData.provider_1[0].squareFootage}</p>
+            <p><span>Lot Size (Acres):</span> {apiData.provider_1[0].lotSizeInAcres}</p>
+            <p><span>Year Built:</span> {apiData.provider_1[0].yearBuilt}</p>
+            <p><span>Property Type:</span> {apiData.provider_1[0].propertyType}</p>
+            <p><span>Bedrooms:</span> {apiData.provider_1[0].bedrooms}</p>
+            <p><span>Bathrooms:</span> {apiData.provider_1[0].bathrooms}</p>
+            <p><span>Room Count:</span> {apiData.provider_1[0].roomCount}</p>
+            <p><span>Septic System:</span> {apiData.provider_1[0].septicSystem ? "Yes" : "No"}</p>
+            <p><span>Sale Price:</span> {`$${apiData.provider_1[0].salePrice}`}</p>
           </div> : null}
-          {apiData && apiData.source_2 ? <div className="w-1/2">
-            <p><span>Bathrooms:</span> {apiData.source_2[0].bathrooms}</p>
-            <p><span>Bedrooms:</span> {apiData.source_2[0].bedrooms}</p>
-            <p><span>Year Built:</span> {apiData.source_2[0].yearBuilt}</p>
-            <p><span>Property Type:</span> {apiData.source_2[0].propertyType}</p>
-            <p><span>Sale Price:</span> {apiData.source_2[0].salePrice}</p>
-            <p><span>Room Count:</span> {apiData.source_2[0].roomCount}</p>
+          {apiData && apiData.provider_2 ? <div className="w-1/2 p-4">
+            <h4 className="text-3xl mb-8 text-cyan-500">Provider 2</h4>
+            <p><span>Square Footage:</span> {apiData.provider_2[0].squareFootage}</p>
+            <p><span>Lot Size (Acres):</span> {apiData.provider_2[0].lotSizeInAcres}</p>
+            <p><span>Year Built:</span> {apiData.provider_2[0].yearBuilt}</p>
+            <p><span>Property Type:</span> {apiData.provider_2[0].propertyType}</p>
+            <p><span>Bedrooms:</span> {apiData.provider_2[0].bedrooms}</p>
+            <p><span>Bathrooms:</span> {apiData.provider_2[0].bathrooms}</p>
+            <p><span>Room Count:</span> {apiData.provider_2[0].roomCount}</p>
+            <p><span>Septic System:</span> {apiData.provider_2[0].septicSystem ? "Yes" : "No"}</p>
+            <p><span>Sale Price:</span> {`$${apiData.provider_2[0].salePrice}`}</p>
           </div> : null}
         </div>
         

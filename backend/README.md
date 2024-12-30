@@ -18,6 +18,12 @@ Now activate your virtual environment by running:
 source .venv/bin/activate
 ```
 
+Deactivate the virtual environment running:
+
+```bash
+deactivate
+```
+
 Installing dependencies:
 
 ```bash
