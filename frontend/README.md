@@ -48,3 +48,13 @@ export default tseslint.config({
   },
 })
 ```
+
+Running the application with docker:
+
+```bash
+docker build -t hometap-equity-app .
+```
+
+```bash
+docker run -d -p 5173:5173 hometap-equity-app
+```

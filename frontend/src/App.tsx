@@ -21,8 +21,6 @@ function App() {
     }
   }
 
-console.log({apiData})
-
   return (
     <div className="container mx-auto md:container md:mx-auto">
       <h1 className="text-6xl">Hometap equity</h1>
