@@ -15,4 +15,4 @@ class APIService:
     source_1_items = await ThirdPartyAPI1Service.get_items_from_api(url_1, params=search_query)
 
     # aggregated data
-    return AggregatedResponse(source_1=source_1_items, source_2=source_2_items)
+    return AggregatedResponse(provider_1=source_1_items, provider_2=source_2_items)
