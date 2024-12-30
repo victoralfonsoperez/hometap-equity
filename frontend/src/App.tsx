@@ -5,7 +5,8 @@ import { API_response, getAPIData } from "./utils/getAPIData";
 function App() {
   const [apiData, setApiData] = useState<API_response>()
   const [loading, setLoading] = useState(false)
-  async function search(event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async function search(event: any) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const inputValue = formData.get('address');
