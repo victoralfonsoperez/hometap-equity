@@ -50,11 +50,14 @@ Community and Support: Both FastAPI and Vite have strong, active communities. Re
 
 While the application is functional, both the backend and frontend have significant room for improvement.
 
-Backend
+#### Backend
+
 In the backend, the aggregated response logic can be optimized. Currently, there are areas where data consistency could be ensured better, particularly when interacting with third-party APIs. Properly typing the responses from these APIs would help catch errors earlier and ensure that data is consistently structured throughout the application. This would also improve maintainability and reduce the likelihood of runtime issues due to unexpected data formats.
 
-Frontend
+#### Frontend
+
 On the frontend, there is potential to extend and better test the types for the API responses. With more time, I would have implemented contract testing between the frontend and backend to ensure that both sides are aligned and avoid breaking changes. Additionally, implementing more comprehensive tests would help improve error handling across the application. Incorporating optimistic UI patterns would provide a smoother user experience by making the interface feel more responsive, especially during actions that involve backend communication.
 
-Testing and Error Handling
+#### Testing and Error Handling
+
 Given more time, I would have also added unit and integration tests to both the frontend and backend. This would not only ensure better error handling but also make the codebase more robust and easier to maintain in the long term. Proper testing, combined with clear error handling strategies, would contribute to a more reliable and user-friendly application overall.
