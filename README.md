@@ -1,63 +1,293 @@
-# hometap-equity
+# Hometap Equity Web App
 
-hometap equity web app
+Una aplicación web moderna para gestión de equidad de hogar inspirada en Hometap, construida con FastAPI y React + Vite.
 
+## 🏗️ Arquitectura
 
-## Requirements to run te application
+### Backend: FastAPI
+- **Framework**: FastAPI con Python
+- **Características**: API asíncrona de alto rendimiento
+- **Documentación**: Auto-generación de OpenAPI/Swagger
+- **Autenticación**: Soporte para OAuth2 y JWT
+- **Validación**: Validación automática de requests con Pydantic
 
-In order to run the back and the frontend apps you need to install [Docker](https://www.docker.com/).
+### Frontend: React + Vite
+- **Framework**: React 18+ con TypeScript
+- **Build Tool**: Vite para desarrollo ultrarrápido
+- **Características**: Hot Module Reloading (HMR) instantáneo
+- **Bundling**: ESBuild para builds optimizados
 
-from the root folder you can run the following command to start both applications at the same time:
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+- [Docker](https://www.docker.com/) y Docker Compose
+- Git
+
+### Instalación y Ejecución
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/victoralfonsoperez/hometap-equity.git
+   cd hometap-equity
+   ```
+
+2. **Iniciar la aplicación completa**
+   ```bash
+   # Construir e iniciar ambos servicios (backend y frontend)
+   docker-compose up --build
+   ```
+
+3. **Acceder a la aplicación**
+   - **Frontend**: http://localhost:3000
+   - **Backend API**: http://localhost:8000
+   - **Documentación API**: http://localhost:8000/docs (Swagger UI)
+   - **Documentación Alternativa**: http://localhost:8000/redoc
+
+4. **Detener la aplicación**
+   ```bash
+   docker-compose down
+   ```
+
+### Comandos de Desarrollo
 
 ```bash
+# Ejecutar solo el backend
+docker-compose up backend
+
+# Ejecutar solo el frontend  
+docker-compose up frontend
+
+# Ver logs en tiempo real
+docker-compose logs -f
+
+# Reconstruir servicios después de cambios
+docker-compose up --build --force-recreate
+
+# Limpiar volúmenes y reiniciar desde cero
+docker-compose down -v
 docker-compose up --build
 ```
 
-and the following command to finish the process.
+## 📁 Estructura del Proyecto
 
-```bash
-docker-compose down
+```
+hometap-equity/
+├── backend/                 # API FastAPI
+│   ├── app/
+│   │   ├── main.py         # Punto de entrada de la aplicación
+│   │   ├── models/         # Modelos Pydantic
+│   │   ├── routes/         # Endpoints de la API
+│   │   ├── services/       # Lógica de negocio
+│   │   └── utils/          # Utilidades
+│   ├── requirements.txt    # Dependencias Python
+│   └── Dockerfile
+├── frontend/               # Aplicación React
+│   ├── src/
+│   │   ├── components/     # Componentes React
+│   │   ├── pages/          # Páginas/Vistas
+│   │   ├── services/       # Clientes API
+│   │   ├── types/          # Definiciones TypeScript
+│   │   └── utils/          # Utilidades
+│   ├── package.json
+│   └── Dockerfile
+├── docker-compose.yml      # Configuración de servicios
+└── README.md
 ```
 
+## 🛠️ Desarrollo Local (Sin Docker)
 
-### Architectural choices
+### Backend
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
 
-#### Backend: FastAPI
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-FastAPI was selected for its combination of speed, simplicity, and modern features that are well-suited for rapid development. It’s one of the fastest web frameworks in Python, leveraging asynchronous programming out of the box to handle many requests concurrently. This makes it an excellent choice for applications that require fast response times or need to handle a high volume of requests.
+## 🧪 Testing
 
-FastAPI's automatic generation of OpenAPI and JSON Schema documentation significantly reduces setup time for API documentation and testing, it did allow me to quickly integrate API specifications into the development process. The framework’s strong reliance on Python type hints also enables better development tools, such as autocompletion and automatic error checking, which improves both productivity and code quality. With automatic request validation and minimal boilerplate, FastAPI did allow me to focus more on building features rather than managing infrastructure or writing repetitive code.
+```bash
+# Backend tests
+cd backend
+pytest
 
-Additionally, FastAPI has built-in support for OAuth2, JWT authentication, and CORS, which makes it easy to implement common features like secure authentication and cross-origin resource sharing. This helped me avoid spending time on security-related configuration and allowed me to focus on delivering functional code quickly.
+# Frontend tests
+cd frontend
+npm run test
 
-#### Frontend: Vite-React
+# E2E tests
+npm run test:e2e
+```
 
-On the frontend, I’ve opted for Vite paired with React. Vite is an extremely fast development tool that uses ESBuild under the hood to bundle code and optimize builds. This results in almost instant hot module reloading (HMR), allowing me to see frontend changes in real time without waiting for slow rebuilds. This speed is particularly important when working under tight deadlines as it reduces the feedback loop and accelerates development.
+## 📋 Funcionalidades Principales
 
-React's component-based architecture enabled me to build a maintainable, modular frontend that scales well. React’s popularity also means there is a wealth of resources, libraries, and community support available, reducing the time needed to solve common problems. Combined with Vite, React also benefits from fast production builds due to Vite's optimized bundling process, ensuring that the final application remains performant even as the project grows.
+- ✅ Cálculo de equidad de hogar
+- ✅ Simulación de inversiones
+- ✅ Dashboard interactivo
+- ✅ API RESTful documentada
+- ✅ Interfaz responsiva
+- ✅ Validación de datos en tiempo real
 
-Vite’s native support for TypeScript, JSX, and CSS modules further streamlines the development process, offering built-in tooling and support for modern JavaScript features. Given that Vite is designed to work seamlessly with frameworks like React, that way I can spend less time configuring build tools and more time focusing on writing the application features.
+## 🔧 Configuración
 
-#### Why This Stack?
+### Variables de Entorno
 
-Developer Productivity: Both FastAPI and Vite-React offer excellent developer experiences with fast feedback loops and minimal configuration overhead, allowing me to focus on building features rather than dealing with complex setups or slow build times.
-Performance: FastAPI's asynchronous support and React's efficient rendering, paired with Vite's fast bundling, ensure that both the backend and frontend perform well under load.
-Scalability: Both FastAPI and React are highly scalable, making it easy to extend the application as requirements evolve. The modular nature of React and the high-performance architecture of FastAPI allow for future growth without major rewrites.
-Community and Support: Both FastAPI and Vite have strong, active communities. React’s widespread adoption ensures that finding solutions to common challenges will be straightforward, while FastAPI’s growing popularity and modern features ensure it’s future-proof for the backend.
+Crear archivos `.env` en los directorios correspondientes:
 
+**Backend (.env)**
+```bash
+DATABASE_URL=postgresql://user:password@localhost:5432/hometap
+SECRET_KEY=your-secret-key-here
+API_VERSION=v1
+CORS_ORIGINS=http://localhost:3000
+```
 
-### Next steps
+**Frontend (.env)**
+```bash
+VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_APP_TITLE=Hometap Equity App
+```
 
-While the application is functional, both the backend and frontend have significant room for improvement.
+## 🚧 Mejoras Sugeridas
 
-#### Backend
+### Backend
+- [ ] **Implementar testing completo**
+  - Unit tests con pytest
+  - Integration tests para endpoints
+  - Mocking de APIs externas
+  
+- [ ] **Mejorar tipado y validación**
+  - Tipar todas las respuestas de APIs externas
+  - Implementar schemas Pydantic más robustos
+  - Validación de datos más estricta
 
-In the backend, the aggregated response logic can be optimized. Currently, there are areas where data consistency could be ensured better, particularly when interacting with third-party APIs. Properly typing the responses from these APIs would help catch errors earlier and ensure that data is consistently structured throughout the application. This would also improve maintainability and reduce the likelihood of runtime issues due to unexpected data formats.
+- [ ] **Optimización de rendimiento**
+  - Implementar caching con Redis
+  - Optimizar queries a base de datos
+  - Connection pooling
 
-#### Frontend
+- [ ] **Seguridad**
+  - Rate limiting
+  - Input sanitization
+  - HTTPS en producción
+  - Logs de seguridad
 
-On the frontend, there is potential to extend and better test the types for the API responses. With more time, I would have implemented contract testing between the frontend and backend to ensure that both sides are aligned and avoid breaking changes. Additionally, implementing more comprehensive tests would help improve error handling across the application. Incorporating optimistic UI patterns would provide a smoother user experience by making the interface feel more responsive, especially during actions that involve backend communication.
+- [ ] **Monitoreo**
+  - Health checks
+  - Métricas con Prometheus
+  - Logging estructurado
 
-#### Testing and Error Handling
+### Frontend
+- [ ] **Testing y Calidad**
+  - Unit tests con Jest/Vitest
+  - Component testing con React Testing Library
+  - E2E tests con Playwright/Cypress
+  - Contract testing con backend
 
-Given more time, I would have also added unit and integration tests to both the frontend and backend. This would not only ensure better error handling but also make the codebase more robust and easier to maintain in the long term. Proper testing, combined with clear error handling strategies, would contribute to a more reliable and user-friendly application overall.
+- [ ] **UX/UI Mejorado**
+  - Implementar UI optimista
+  - Loading states y skeletons
+  - Error boundaries
+  - Manejo de errores más robusto
+
+- [ ] **Performance**
+  - Code splitting y lazy loading
+  - Optimización de bundle size
+  - Service Worker para caching
+  - Imágenes optimizadas
+
+- [ ] **Accesibilidad**
+  - ARIA labels completos
+  - Navegación por teclado
+  - Soporte para screen readers
+  - Contraste de colores mejorado
+
+### DevOps y Deployment
+- [ ] **CI/CD Pipeline**
+  - GitHub Actions para testing automático
+  - Deployment automático
+  - Code quality checks (ESLint, Black, mypy)
+
+- [ ] **Containerización mejorada**
+  - Multi-stage Docker builds
+  - Optimización de imagen size
+  - Health checks en containers
+
+- [ ] **Monitoring y Observabilidad**
+  - Logging centralizado
+  - Error tracking (Sentry)
+  - Performance monitoring
+  - Alertas automáticas
+
+## 🎯 Decisiones Arquitectónicas
+
+### ¿Por qué FastAPI?
+
+FastAPI fue seleccionado por su combinación de velocidad, simplicidad y características modernas ideales para desarrollo rápido. Es uno de los frameworks web más rápidos en Python, aprovechando la programación asíncrona para manejar múltiples requests concurrentemente.
+
+La generación automática de documentación OpenAPI y JSON Schema reduce significativamente el tiempo de configuración para documentación y testing de APIs. El fuerte enfoque en type hints de Python habilita mejores herramientas de desarrollo como autocompletado y verificación automática de errores.
+
+### ¿Por qué Vite + React?
+
+En el frontend, opté por Vite junto con React. Vite es una herramienta de desarrollo extremadamente rápida que usa ESBuild internamente para bundling y optimización de builds, resultando en Hot Module Reloading (HMR) casi instantáneo.
+
+La arquitectura basada en componentes de React permite construir un frontend mantenible y modular que escala bien. La popularidad de React también significa una gran cantidad de recursos, librerías y soporte comunitario disponible.
+
+### Beneficios del Stack
+
+- **Productividad de Desarrollo**: Ambos FastAPI y Vite-React ofrecen excelentes experiencias de desarrollo con ciclos de feedback rápidos
+- **Performance**: El soporte asíncrono de FastAPI y el renderizado eficiente de React, junto con el bundling rápido de Vite
+- **Escalabilidad**: Tanto FastAPI como React son altamente escalables
+- **Comunidad y Soporte**: Ambas tecnologías tienen comunidades fuertes y activas
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crear una rama para tu feature (`git checkout -b feature/amazing-feature`)
+3. Commit tus cambios (`git commit -m 'Add amazing feature'`)
+4. Push a la rama (`git push origin feature/amazing-feature`)
+5. Abrir un Pull Request
+
+### Convenciones de Código
+
+**Backend**
+- Seguir PEP 8
+- Usar type hints
+- Documentar funciones con docstrings
+- Tests para toda nueva funcionalidad
+
+**Frontend**
+- Usar TypeScript estricto
+- Componentes funcionales con hooks
+- Props tipadas
+- Tests para componentes críticos
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+
+## 🔗 Enlaces Útiles
+
+- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [React Documentation](https://reactjs.org/)
+- [Vite Documentation](https://vitejs.dev/)
+- [Docker Documentation](https://docs.docker.com/)
+
+## 📞 Soporte
+
+Si tienes problemas o preguntas:
+1. Revisa los [Issues existentes](https://github.com/victoralfonsoperez/hometap-equity/issues)
+2. Crea un nuevo issue con detalles del problema
+3. Incluye logs relevantes y pasos para reproducir
+
+---
+
+**Nota**: Esta aplicación es un proyecto de demostración y no está afiliada con Hometap Inc.
