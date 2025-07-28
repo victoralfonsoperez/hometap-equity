@@ -1,63 +1,297 @@
-# hometap-equity
+# HomeTap Equity Web Application
 
-hometap equity web app
+A full-stack web application for equity analysis built with FastAPI backend and React frontend, containerized with Docker for easy deployment and development.
 
+## 🚀 Quick Start
 
-## Requirements to run te application
+### Prerequisites
 
-In order to run the back and the frontend apps you need to install [Docker](https://www.docker.com/).
+- [Docker](https://www.docker.com/) installed on your system
+- [Docker Compose](https://docs.docker.com/compose/) (usually included with Docker Desktop)
 
-from the root folder you can run the following command to start both applications at the same time:
+### Running the Application
 
-```bash
-docker-compose up --build
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/victoralfonsoperez/hometap-equity.git
+   cd hometap-equity
+   ```
+
+2. **Start both applications:**
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Stop the applications:**
+   ```bash
+   docker-compose down
+   ```
+
+The application will be available at:
+- **Frontend**: http://localhost:3000 (React + Vite)
+- **Backend API**: http://localhost:8000 (FastAPI)
+- **API Documentation**: http://localhost:8000/docs (Swagger UI)
+
+## 🏗️ Project Structure
+
+```
+hometap-equity/
+├── backend/                    # FastAPI backend application
+│   ├── app/                   # Main application code
+│   ├── requirements.txt       # Python dependencies
+│   └── Dockerfile            # Backend container configuration
+├── frontend/                  # React + Vite frontend application
+│   ├── src/                  # React source code
+│   ├── package.json          # Node.js dependencies
+│   └── Dockerfile           # Frontend container configuration
+├── docker-compose.yml        # Multi-container orchestration
+└── README.md                # Project documentation
 ```
 
-and the following command to finish the process.
+## 🛠️ Technology Stack
 
-```bash
-docker-compose down
-```
+### Backend - FastAPI
+- **Framework**: FastAPI with Python
+- **Features**: 
+  - Asynchronous request handling
+  - Automatic OpenAPI/Swagger documentation
+  - Built-in request validation
+  - Type hints support
+  - OAuth2 and JWT authentication ready
+  - CORS support
 
+### Frontend - React + Vite
+- **Framework**: React with TypeScript support
+- **Build Tool**: Vite for ultra-fast development and building
+- **Features**:
+  - Hot Module Replacement (HMR)
+  - Component-based architecture
+  - Modern JavaScript/TypeScript support
+  - Optimized production builds
 
-### Architectural choices
+### Infrastructure
+- **Containerization**: Docker & Docker Compose
+- **Development**: Hot reloading for both frontend and backend
 
-#### Backend: FastAPI
+## 📊 Analysis Overview
 
-FastAPI was selected for its combination of speed, simplicity, and modern features that are well-suited for rapid development. It’s one of the fastest web frameworks in Python, leveraging asynchronous programming out of the box to handle many requests concurrently. This makes it an excellent choice for applications that require fast response times or need to handle a high volume of requests.
+This application provides equity analysis capabilities with the following characteristics:
 
-FastAPI's automatic generation of OpenAPI and JSON Schema documentation significantly reduces setup time for API documentation and testing, it did allow me to quickly integrate API specifications into the development process. The framework’s strong reliance on Python type hints also enables better development tools, such as autocompletion and automatic error checking, which improves both productivity and code quality. With automatic request validation and minimal boilerplate, FastAPI did allow me to focus more on building features rather than managing infrastructure or writing repetitive code.
+### Current Implementation
+- **Fast Development**: Leverages FastAPI's speed and React's component architecture
+- **Real-time Updates**: Vite's HMR provides instant feedback during development
+- **API-First Design**: Automatic documentation generation with FastAPI
+- **Scalable Architecture**: Modular design supporting future growth
+- **Cross-platform**: Docker ensures consistent deployment across environments
 
-Additionally, FastAPI has built-in support for OAuth2, JWT authentication, and CORS, which makes it easy to implement common features like secure authentication and cross-origin resource sharing. This helped me avoid spending time on security-related configuration and allowed me to focus on delivering functional code quickly.
+### Key Features
+- Equity data processing and analysis
+- RESTful API with comprehensive documentation
+- Modern, responsive user interface
+- Asynchronous backend processing
+- Type-safe development with TypeScript support
 
-#### Frontend: Vite-React
+## ⚡ Optimization Suggestions
 
-On the frontend, I’ve opted for Vite paired with React. Vite is an extremely fast development tool that uses ESBuild under the hood to bundle code and optimize builds. This results in almost instant hot module reloading (HMR), allowing me to see frontend changes in real time without waiting for slow rebuilds. This speed is particularly important when working under tight deadlines as it reduces the feedback loop and accelerates development.
+### Backend Improvements
 
-React's component-based architecture enabled me to build a maintainable, modular frontend that scales well. React’s popularity also means there is a wealth of resources, libraries, and community support available, reducing the time needed to solve common problems. Combined with Vite, React also benefits from fast production builds due to Vite's optimized bundling process, ensuring that the final application remains performant even as the project grows.
+1. **Data Consistency & Validation**
+   ```python
+   # Implement proper response typing
+   from pydantic import BaseModel
+   
+   class EquityResponse(BaseModel):
+       id: int
+       value: float
+       timestamp: datetime
+   ```
 
-Vite’s native support for TypeScript, JSX, and CSS modules further streamlines the development process, offering built-in tooling and support for modern JavaScript features. Given that Vite is designed to work seamlessly with frameworks like React, that way I can spend less time configuring build tools and more time focusing on writing the application features.
+2. **API Response Optimization**
+   - Implement response caching for frequently accessed data
+   - Add request/response compression
+   - Optimize database queries with proper indexing
 
-#### Why This Stack?
+3. **Error Handling**
+   ```python
+   # Add comprehensive error handling
+   from fastapi import HTTPException
+   
+   @app.exception_handler(ValueError)
+   async def value_error_handler(request, exc):
+       return JSONResponse(status_code=400, content={"detail": str(exc)})
+   ```
 
-Developer Productivity: Both FastAPI and Vite-React offer excellent developer experiences with fast feedback loops and minimal configuration overhead, allowing me to focus on building features rather than dealing with complex setups or slow build times.
-Performance: FastAPI's asynchronous support and React's efficient rendering, paired with Vite's fast bundling, ensure that both the backend and frontend perform well under load.
-Scalability: Both FastAPI and React are highly scalable, making it easy to extend the application as requirements evolve. The modular nature of React and the high-performance architecture of FastAPI allow for future growth without major rewrites.
-Community and Support: Both FastAPI and Vite have strong, active communities. React’s widespread adoption ensures that finding solutions to common challenges will be straightforward, while FastAPI’s growing popularity and modern features ensure it’s future-proof for the backend.
+4. **Third-party API Integration**
+   - Implement retry mechanisms for external API calls
+   - Add circuit breaker pattern for resilience
+   - Use connection pooling for better performance
 
+### Frontend Improvements
 
-### Next steps
+1. **Type Safety**
+   ```typescript
+   // Define API response interfaces
+   interface EquityData {
+     id: number;
+     value: number;
+     timestamp: string;
+   }
+   ```
 
-While the application is functional, both the backend and frontend have significant room for improvement.
+2. **State Management**
+   - Implement React Query/TanStack Query for server state
+   - Add proper error boundaries
+   - Implement optimistic UI updates
 
-#### Backend
+3. **Performance Optimization**
+   ```jsx
+   // Use React.memo for expensive components
+   const EquityChart = React.memo(({ data }) => {
+     // Component implementation
+   });
+   ```
 
-In the backend, the aggregated response logic can be optimized. Currently, there are areas where data consistency could be ensured better, particularly when interacting with third-party APIs. Properly typing the responses from these APIs would help catch errors earlier and ensure that data is consistently structured throughout the application. This would also improve maintainability and reduce the likelihood of runtime issues due to unexpected data formats.
+4. **User Experience**
+   - Add loading states and skeleton screens
+   - Implement proper error handling with user feedback
+   - Add data validation on the client side
 
-#### Frontend
+### Infrastructure Improvements
 
-On the frontend, there is potential to extend and better test the types for the API responses. With more time, I would have implemented contract testing between the frontend and backend to ensure that both sides are aligned and avoid breaking changes. Additionally, implementing more comprehensive tests would help improve error handling across the application. Incorporating optimistic UI patterns would provide a smoother user experience by making the interface feel more responsive, especially during actions that involve backend communication.
+1. **Development Environment**
+   ```yaml
+   # Enhanced docker-compose.yml
+   version: '3.8'
+   services:
+     backend:
+       build: ./backend
+       volumes:
+         - ./backend:/app
+       environment:
+         - ENVIRONMENT=development
+       
+     frontend:
+       build: ./frontend
+       volumes:
+         - ./frontend:/app
+         - /app/node_modules
+   ```
 
-#### Testing and Error Handling
+2. **Production Optimization**
+   - Multi-stage Docker builds for smaller images
+   - Health checks for containers
+   - Environment-specific configurations
 
-Given more time, I would have also added unit and integration tests to both the frontend and backend. This would not only ensure better error handling but also make the codebase more robust and easier to maintain in the long term. Proper testing, combined with clear error handling strategies, would contribute to a more reliable and user-friendly application overall.
+## 🧪 Testing Strategy
+
+### Recommended Testing Implementation
+
+1. **Backend Testing**
+   ```python
+   # pytest setup
+   pip install pytest pytest-asyncio httpx
+   
+   # Example test
+   def test_equity_endpoint():
+       response = client.get("/api/equity")
+       assert response.status_code == 200
+   ```
+
+2. **Frontend Testing**
+   ```bash
+   # Install testing dependencies
+   npm install --save-dev @testing-library/react @testing-library/jest-dom vitest
+   ```
+
+3. **Contract Testing**
+   - Implement API contract tests between frontend and backend
+   - Use tools like Pact or OpenAPI generators
+
+4. **Integration Testing**
+   - End-to-end tests with Cypress or Playwright
+   - Database integration tests
+   - API integration tests
+
+## 🚀 Deployment Recommendations
+
+### Production Deployment
+
+1. **Environment Configuration**
+   ```bash
+   # Production environment variables
+   DATABASE_URL=postgresql://...
+   API_SECRET_KEY=your-secret-key
+   CORS_ORIGINS=https://yourdomain.com
+   ```
+
+2. **Container Orchestration**
+   - Consider Kubernetes for production scaling
+   - Implement proper logging and monitoring
+   - Set up CI/CD pipelines
+
+3. **Security Enhancements**
+   - Implement proper authentication and authorization
+   - Add rate limiting
+   - Use HTTPS in production
+   - Regular security audits
+
+## 🔧 Development Workflow
+
+### Local Development
+
+1. **Backend Development**
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+2. **Frontend Development**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+3. **Database Setup** (if applicable)
+   ```bash
+   # Add database initialization scripts
+   docker-compose exec backend python -m app.database.init_db
+   ```
+
+## 📈 Performance Monitoring
+
+### Recommended Monitoring Tools
+
+1. **Backend Monitoring**
+   - FastAPI middleware for request timing
+   - Database query performance monitoring
+   - Memory and CPU usage tracking
+
+2. **Frontend Monitoring**
+   - Web Vitals tracking
+   - Bundle size analysis
+   - Performance profiling with React DevTools
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the GitHub repository
+- Check the API documentation at `/docs` endpoint
+- Review the Docker logs for troubleshooting
+
+---
+
+**Note**: This application is designed for rapid development and deployment. The architecture supports scalability and can be extended based on evolving requirements.
